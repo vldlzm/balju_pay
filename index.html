@@ -211,6 +211,32 @@
     .tag-gray   { background: #f2f2f2; color: #666; }
     .tag-yellow { background: #fffbe6; color: #b07e00; }
 
+    .detail-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .detail-table th {
+      text-align: left;
+      padding: 7px 8px;
+      background: #f7f7f7;
+      color: #888;
+      font-weight: 700;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .detail-table td {
+      padding: 8px 8px;
+      color: #444;
+      border-bottom: 1px solid #f2f2f2;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .detail-table tr:last-child td { border-bottom: none; }
+
     .state-list {
       display: flex;
       flex-direction: column;
@@ -1182,7 +1208,40 @@
 
   <!-- ── 우측: 화면 설명 ── -->
   <aside class="detail">
-    <h2 id="detail-screen-name">결제 방식 선택</h2>
+
+    <!-- 기본: 화면명만 표시 -->
+    <div id="detail-default">
+      <h2 id="detail-screen-name">결제 방식 선택</h2>
+    </div>
+
+    <!-- 서비스 이용료 부과 안내 전용 설명 -->
+    <div id="detail-service-fee-terms" style="display:none">
+      <h2>서비스 이용료 부과 안내</h2>
+      <div class="detail-divider"></div>
+      <div class="detail-section-label">버튼 동작</div>
+      <table class="detail-table">
+        <thead>
+          <tr>
+            <th>버튼</th>
+            <th>의미</th>
+            <th>동작</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>닫기</td>
+            <td>이전 단계로 돌아가기</td>
+            <td>결제 방식 선택 화면으로 복귀</td>
+          </tr>
+          <tr>
+            <td>X</td>
+            <td>전체 프로세스 취소</td>
+            <td>결제 플로우 전체 종료</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </aside>
 
 </div>
@@ -1285,7 +1344,18 @@
     });
     const target = document.getElementById(screenId);
     if (target) target.style.display = '';
-    if (title) document.getElementById('detail-screen-name').textContent = title;
+
+    // 우측 detail 패널 전환
+    const detailKey = 'detail-' + screenId.replace('screen-', '');
+    const customDetail = document.getElementById(detailKey);
+    document.getElementById('detail-default').style.display = customDetail ? 'none' : '';
+    document.querySelectorAll('.detail > div[id^="detail-"]').forEach(d => d.style.display = 'none');
+    if (customDetail) {
+      customDetail.style.display = '';
+    } else {
+      document.getElementById('detail-default').style.display = '';
+      if (title) document.getElementById('detail-screen-name').textContent = title;
+    }
   }
 
   // 좌측 내비 활성화 + 화면 전환
