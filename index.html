@@ -664,11 +664,6 @@
       <!-- 본문 -->
       <div class="modal-body">
 
-        <div class="amount-box">
-          <span class="label">총 결제금액</span>
-          <span class="amount">1,250,000원</span>
-        </div>
-
         <div class="options">
 
           <!-- 예치금 결제 -->
@@ -746,6 +741,11 @@
               <span class="fee-value" id="fee-total"></span>
             </div>
           </div>
+        </div>
+
+        <div class="amount-box" style="margin-top:14px; margin-bottom:0;">
+          <span class="label">총 결제금액</span>
+          <span class="amount" id="display-amount">1,250,000원</span>
         </div>
 
       </div>
@@ -848,11 +848,15 @@
     const notice = document.getElementById('fee-notice');
     const showFee = type === 'credit' || type === 'saved';
     notice.classList.toggle('visible', showFee);
+
+    const fee = Math.round(BASE_AMOUNT * 0.03);
     if (showFee) {
-      const fee = Math.round(BASE_AMOUNT * 0.03);
       document.getElementById('fee-base').textContent   = fmt(BASE_AMOUNT);
       document.getElementById('fee-charge').textContent = '+' + fmt(fee);
       document.getElementById('fee-total').textContent  = fmt(BASE_AMOUNT + fee);
+      document.getElementById('display-amount').textContent = fmt(BASE_AMOUNT + fee);
+    } else {
+      document.getElementById('display-amount').textContent = fmt(BASE_AMOUNT);
     }
   }
 
