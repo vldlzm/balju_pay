@@ -708,6 +708,103 @@
     .btn-next:disabled:hover { opacity: 1; }
 
     /* ═══════════════════════════════════════
+       수정사항 화면 스타일
+    ═══════════════════════════════════════ */
+    .changes-panel {
+      background: #fff;
+      border-radius: 16px;
+      width: 660px;
+      max-width: 100%;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+    }
+
+    .changes-panel-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 22px 28px 18px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .changes-panel-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .changes-panel-body {
+      padding: 24px 28px 28px;
+    }
+
+    .changes-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .changes-table thead tr {
+      background: #f7f8fa;
+    }
+
+    .changes-table th {
+      text-align: left;
+      padding: 11px 14px;
+      color: #888;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 2px solid #ececec;
+    }
+
+    .changes-table td {
+      padding: 13px 14px;
+      color: #333;
+      border-bottom: 1px solid #f2f2f2;
+      vertical-align: middle;
+      line-height: 1.6;
+    }
+
+    .changes-table tr:last-child td { border-bottom: none; }
+
+    .changes-table tr:hover td { background: #fafafa; }
+
+    .changes-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: #bbb;
+      text-align: center;
+      width: 36px;
+    }
+
+    .changes-screen-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #f0f0f0;
+      color: #555;
+      white-space: nowrap;
+    }
+
+    .type-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .type-add    { background: #e8fef0; color: #00a832; }
+    .type-change { background: #fff8e1; color: #b07e00; }
+    .type-delete { background: #ffeef0; color: #d32f2f; }
+
+    /* ═══════════════════════════════════════
        서비스 이용료 약관 화면 스타일
     ═══════════════════════════════════════ */
     .terms-detail-modal {
@@ -871,6 +968,9 @@
     </a>
     <a class="nav-item" href="#" data-screen="screen-service-fee-terms" data-title="서비스 이용료 부과 안내">
       <span class="nav-dot"></span>서비스 이용료 부과 안내
+    </a>
+    <a class="nav-item" href="#" data-screen="screen-changes" data-title="수정사항">
+      <span class="nav-dot"></span>수정사항
     </a>
   </nav>
 
@@ -1203,6 +1303,63 @@
 
     </div>
     </div><!-- /screen-service-fee-terms -->
+
+    <!-- ── 수정사항 화면 ── -->
+    <div id="screen-changes" style="display:none">
+    <div class="changes-panel">
+
+      <div class="changes-panel-header">
+        <div class="header-logo">P</div>
+        <h2>수정사항</h2>
+      </div>
+
+      <div class="changes-panel-body">
+        <table class="changes-table">
+          <thead>
+            <tr>
+              <th class="changes-num">No.</th>
+              <th>화면</th>
+              <th>수정 내용</th>
+              <th>유형</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="changes-num">1</td>
+              <td><span class="changes-screen-tag">결제방식 선택</span></td>
+              <td>신용카드 및 등록된 카드 선택 시 서비스 이용료 항목 추가</td>
+              <td><span class="type-tag type-add">추가</span></td>
+            </tr>
+            <tr>
+              <td class="changes-num">2</td>
+              <td><span class="changes-screen-tag">결제 수단 등록</span></td>
+              <td>결제 수단 등록 화면 추가</td>
+              <td><span class="type-tag type-add">추가</span></td>
+            </tr>
+            <tr>
+              <td class="changes-num">3</td>
+              <td><span class="changes-screen-tag">카드 등록완료</span></td>
+              <td>버튼명을 "바로 결제"로 변경</td>
+              <td><span class="type-tag type-change">변경</span></td>
+            </tr>
+            <tr>
+              <td class="changes-num">4</td>
+              <td><span class="changes-screen-tag">결제방식 선택</span></td>
+              <td>신용카드 및 등록된 카드 선택 시 나이스페이 약관 및 서비스 이용료 약관 추가</td>
+              <td><span class="type-tag type-add">추가</span></td>
+            </tr>
+            <tr>
+              <td class="changes-num">5</td>
+              <td><span class="changes-screen-tag">비밀번호 설정</span></td>
+              <td>비밀번호 설정 기능 삭제</td>
+              <td><span class="type-tag type-delete">삭제</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    </div><!-- /screen-changes -->
 
   </main>
 
