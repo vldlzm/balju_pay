@@ -626,11 +626,15 @@
     }
 
     .complete-card {
-      background: #fff;
+      background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 60%, #0a2a6e 100%);
       border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-      padding: 18px 20px 16px;
+      box-shadow: 0 4px 18px rgba(10, 42, 110, 0.30);
+      padding: 28px 24px;
       width: 100%;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .complete-card-top {
@@ -658,13 +662,13 @@
     .complete-card-name {
       font-size: 15px;
       font-weight: 700;
-      color: #111;
+      color: #fff;
     }
 
     .complete-card-number {
       font-size: 15px;
-      color: #333;
-      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.90);
+      letter-spacing: 0.08em;
     }
 
     .complete-msg {
