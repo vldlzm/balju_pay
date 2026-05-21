@@ -602,6 +602,136 @@
 
     .fee-row .fee-value { color: #555; }
     .fee-row.total .fee-value { color: #b07e00; }
+
+    /* ═══════════════════════════════════════
+       카드 등록완료 화면 스타일
+    ═══════════════════════════════════════ */
+    .complete-modal {
+      background: #fff;
+      border-radius: 16px;
+      border: 2px solid #2e7d32;
+      width: 460px;
+      max-width: 100%;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.14);
+    }
+
+    .complete-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 20px 24px 16px;
+    }
+
+    .complete-modal-header h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .complete-modal-header .btn-close {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .complete-card-area {
+      background: #ebebeb;
+      margin: 0 24px;
+      border-radius: 12px;
+      padding: 32px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .complete-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+      padding: 22px 24px 20px;
+      width: 260px;
+    }
+
+    .complete-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .bc-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #d32f2f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      flex-shrink: 0;
+    }
+
+    .complete-card-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .complete-card-number {
+      font-size: 15px;
+      color: #333;
+      letter-spacing: 0.04em;
+    }
+
+    .complete-msg {
+      text-align: center;
+      font-size: 15px;
+      font-weight: 600;
+      color: #222;
+      padding: 28px 24px 36px;
+    }
+
+    .complete-modal-footer {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 24px 28px;
+    }
+
+    .btn-later {
+      height: 50px;
+      min-width: 130px;
+      border-radius: 10px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #5c7a5c;
+      color: #fff;
+      transition: opacity 0.15s;
+    }
+
+    .btn-set-pin {
+      height: 50px;
+      min-width: 130px;
+      border-radius: 10px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      background: #1b4332;
+      color: #fff;
+      transition: opacity 0.15s;
+    }
+
+    .btn-later:hover,
+    .btn-set-pin:hover { opacity: 0.85; }
   </style>
 </head>
 <body>
@@ -621,6 +751,9 @@
     </a>
     <a class="nav-item" href="#" data-screen="screen-card-register" data-title="결제 수단 등록">
       <span class="nav-dot"></span>결제 수단 등록
+    </a>
+    <a class="nav-item" href="#" data-screen="screen-card-complete" data-title="카드 등록완료">
+      <span class="nav-dot"></span>카드 등록완료
     </a>
   </nav>
 
@@ -798,6 +931,35 @@
 
     </div>
     </div><!-- /screen-card-register -->
+
+    <!-- ── 카드 등록완료 화면 ── -->
+    <div id="screen-card-complete" style="display:none">
+    <div class="complete-modal">
+
+      <div class="complete-modal-header">
+        <h2>카드 등록완료</h2>
+        <button class="btn-close">x</button>
+      </div>
+
+      <div class="complete-card-area">
+        <div class="complete-card">
+          <div class="complete-card-top">
+            <div class="bc-logo">BC</div>
+            <span class="complete-card-name">BCcard</span>
+          </div>
+          <div class="complete-card-number">1234 12** ****123*</div>
+        </div>
+      </div>
+
+      <div class="complete-msg">카드 등록이 완료었습니다.</div>
+
+      <div class="complete-modal-footer">
+        <button class="btn-later">나중에 설정</button>
+        <button class="btn-set-pin">비밀번호 설정</button>
+      </div>
+
+    </div>
+    </div><!-- /screen-card-complete -->
 
   </main>
 
