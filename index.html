@@ -443,6 +443,52 @@
       background: #00c73c;
       color: #fff;
     }
+
+    /* ── 서비스 이용료 안내 박스 ── */
+    .fee-notice {
+      display: none;
+      background: #fffbe6;
+      border: 1px solid #ffe58f;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin-top: 14px;
+    }
+
+    .fee-notice.visible { display: block; }
+
+    .fee-notice-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #b07e00;
+      margin-bottom: 10px;
+    }
+
+    .fee-notice-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .fee-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .fee-row.total {
+      border-top: 1px solid #ffe58f;
+      margin-top: 6px;
+      padding-top: 8px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .fee-row .fee-value { color: #555; }
+    .fee-row.total .fee-value { color: #b07e00; }
   </style>
 </head>
 <body>
@@ -563,6 +609,29 @@
           </div>
 
         </div>
+
+        <!-- 서비스 이용료 안내 박스 -->
+        <div class="fee-notice" id="fee-notice">
+          <div class="fee-notice-header">
+            <span>⚠</span>
+            <span>신용카드 결제 시 서비스 이용료 3%가 추가됩니다.</span>
+          </div>
+          <div class="fee-notice-rows">
+            <div class="fee-row">
+              <span>결제금액</span>
+              <span class="fee-value" id="fee-base"></span>
+            </div>
+            <div class="fee-row">
+              <span>서비스 이용료 (3%)</span>
+              <span class="fee-value" id="fee-charge"></span>
+            </div>
+            <div class="fee-row total">
+              <span>최종 결제금액</span>
+              <span class="fee-value" id="fee-total"></span>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- 푸터 -->
@@ -582,11 +651,32 @@
 </div>
 
 <script>
+  const BASE_AMOUNT = 1250000;
+
+  function fmt(n) {
+    return n.toLocaleString('ko-KR') + '원';
+  }
+
+  function updateFeeNotice(type) {
+    const notice = document.getElementById('fee-notice');
+    const showFee = type === 'credit' || type === 'saved';
+    notice.classList.toggle('visible', showFee);
+    if (showFee) {
+      const fee = Math.round(BASE_AMOUNT * 0.03);
+      document.getElementById('fee-base').textContent   = fmt(BASE_AMOUNT);
+      document.getElementById('fee-charge').textContent = '+' + fmt(fee);
+      document.getElementById('fee-total').textContent  = fmt(BASE_AMOUNT + fee);
+    }
+  }
+
   function selectOption(type) {
     document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
     const map = { deposit: 'opt-deposit', credit: 'opt-credit', saved: 'opt-saved' };
     document.getElementById(map[type]).classList.add('selected');
+    updateFeeNotice(type);
   }
+
+  updateFeeNotice('credit');
 
   function goNext() {
     alert('다음 단계로 이동합니다.');
