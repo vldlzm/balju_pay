@@ -444,6 +444,119 @@
       color: #fff;
     }
 
+    /* ═══════════════════════════════════════
+       결제수단 등록 화면 스타일
+    ═══════════════════════════════════════ */
+    .reg-modal {
+      background: #fff;
+      border-radius: 16px;
+      width: 500px;
+      max-width: 100%;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    .reg-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 22px 24px 18px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .reg-modal-header h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .reg-modal-header .btn-close {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .reg-modal-body {
+      padding: 22px 24px 10px;
+    }
+
+    .reg-section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 14px;
+    }
+
+    .reg-section-title .hint {
+      font-size: 12px;
+      font-weight: 400;
+      color: #888;
+      margin-left: 4px;
+    }
+
+    .reg-field {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 10px 14px 11px;
+      margin-bottom: 8px;
+    }
+
+    .reg-field label {
+      display: block;
+      font-size: 11px;
+      color: #888;
+      margin-bottom: 5px;
+    }
+
+    .reg-field input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-size: 14px;
+      color: #333;
+      background: transparent;
+      padding: 0;
+    }
+
+    .reg-field input::placeholder { color: #bbb; }
+
+    .card-num-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-num-row .card-seg {
+      flex: 1;
+      text-align: center;
+    }
+
+    .card-dash {
+      color: #bbb;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .reg-field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 0;
+    }
+
+    .reg-field-row .reg-field {
+      margin-bottom: 8px;
+    }
+
+    .reg-modal-footer {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 16px 24px 26px;
+    }
+
     /* ── 서비스 이용료 안내 박스 ── */
     .fee-notice {
       display: none;
@@ -504,7 +617,7 @@
   <!-- ── 좌측: 인덱스 ── -->
   <nav class="sidebar">
     <div class="sidebar-section-title">결제 플로우</div>
-    <a class="nav-item active" href="#pay-method">
+    <a class="nav-item active" href="#" data-screen="screen-pay-method" data-title="결제 방식 선택">
       <span class="nav-dot"></span>결제 방식 선택
     </a>
     <a class="nav-item" href="#">
@@ -526,7 +639,7 @@
     </a>
 
     <div class="sidebar-section-title">카드 관리</div>
-    <a class="nav-item" href="#">
+    <a class="nav-item" href="#" data-screen="screen-card-register" data-title="카드 등록">
       <span class="nav-dot"></span>카드 등록
     </a>
     <a class="nav-item" href="#">
@@ -536,6 +649,9 @@
 
   <!-- ── 중앙: 화면 영역 ── -->
   <main class="main" id="screen-area">
+
+    <!-- ── 결제 방식 선택 화면 ── -->
+    <div id="screen-pay-method">
     <div class="modal" id="pay-method">
 
       <!-- 헤더 -->
@@ -641,11 +757,82 @@
       </div>
 
     </div>
+    </div><!-- /screen-pay-method -->
+
+    <!-- ── 결제수단 등록 화면 ── -->
+    <div id="screen-card-register" style="display:none">
+    <div class="reg-modal">
+
+      <div class="reg-modal-header">
+        <h2>결제수단 등록</h2>
+        <button class="btn-close">x</button>
+      </div>
+
+      <div class="reg-modal-body">
+
+        <div class="reg-section-title">
+          카드 정보 입력 <span class="hint">(최초 1회만)</span>
+        </div>
+
+        <!-- 카드번호 -->
+        <div class="reg-field">
+          <label>카드번호</label>
+          <div class="card-num-row">
+            <input type="text" class="card-seg" maxlength="4" inputmode="numeric">
+            <span class="card-dash">-</span>
+            <input type="text" class="card-seg" maxlength="4" inputmode="numeric">
+            <span class="card-dash">-</span>
+            <input type="text" class="card-seg" maxlength="4" inputmode="numeric">
+            <span class="card-dash">-</span>
+            <input type="text" class="card-seg" maxlength="4" inputmode="numeric">
+          </div>
+        </div>
+
+        <!-- 유효기간 -->
+        <div class="reg-field-row">
+          <div class="reg-field">
+            <label>유효기간 (MM)</label>
+            <input type="text" maxlength="2" placeholder="* *" inputmode="numeric">
+          </div>
+          <div class="reg-field">
+            <label>유효기간 (YY)</label>
+            <input type="text" maxlength="2" placeholder="* *" inputmode="numeric">
+          </div>
+        </div>
+
+        <!-- 비밀번호 -->
+        <div class="reg-field">
+          <label>비밀번호</label>
+          <input type="password" maxlength="2" placeholder="* *" inputmode="numeric">
+        </div>
+
+        <!-- 식별정보 -->
+        <div class="reg-field">
+          <label>식별정보</label>
+          <input type="text" maxlength="10" placeholder="주민번호 앞 6자리 또는 사업자번호(법인)">
+        </div>
+
+        <!-- 이메일(선택) -->
+        <div class="reg-field">
+          <label>이메일(선택)</label>
+          <input type="email" placeholder="">
+        </div>
+
+      </div>
+
+      <div class="reg-modal-footer">
+        <button class="btn btn-cancel">취소</button>
+        <button class="btn btn-next">등록</button>
+      </div>
+
+    </div>
+    </div><!-- /screen-card-register -->
+
   </main>
 
   <!-- ── 우측: 화면 설명 ── -->
   <aside class="detail">
-    <h2>결제 방식 선택</h2>
+    <h2 id="detail-screen-name">결제 방식 선택</h2>
   </aside>
 
 </div>
@@ -682,11 +869,25 @@
     alert('다음 단계로 이동합니다.');
   }
 
-  // 좌측 내비 활성화
+  // 화면 전환
+  function showScreen(screenId, title) {
+    document.querySelectorAll('#screen-area > div[id^="screen-"]').forEach(s => {
+      s.style.display = 'none';
+    });
+    const target = document.getElementById(screenId);
+    if (target) target.style.display = '';
+    if (title) document.getElementById('detail-screen-name').textContent = title;
+  }
+
+  // 좌측 내비 활성화 + 화면 전환
   document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', function (e) {
+      e.preventDefault();
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       this.classList.add('active');
+      const screen = this.dataset.screen;
+      const title  = this.dataset.title;
+      if (screen) showScreen(screen, title);
     });
   });
 </script>
