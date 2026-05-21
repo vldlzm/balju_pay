@@ -603,6 +603,84 @@
     .fee-row .fee-value { color: #555; }
     .fee-row.total .fee-value { color: #b07e00; }
 
+    /* ── 이용약관 섹션 ── */
+    .terms-section {
+      display: none;
+      margin-top: 14px;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 10px;
+    }
+
+    .terms-section.visible { display: block; }
+
+    .terms-all {
+      display: flex;
+      align-items: center;
+      padding: 6px 0 10px;
+      border-bottom: 1px solid #ececec;
+      margin-bottom: 4px;
+    }
+
+    .terms-all label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      color: #222;
+      width: 100%;
+    }
+
+    .terms-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .terms-item label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #444;
+      flex: 1;
+      min-height: 44px;
+    }
+
+    .terms-arrow {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      color: #bbb;
+      min-width: 44px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 0;
+    }
+
+    .terms-arrow:hover { color: #555; }
+
+    .terms-section input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      accent-color: #00c73c;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .btn-next:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .btn-next:disabled:hover { opacity: 1; }
+
     /* ═══════════════════════════════════════
        카드 등록완료 화면 스타일
     ═══════════════════════════════════════ */
@@ -799,6 +877,44 @@
           </div>
         </div>
 
+        <!-- 이용약관 섹션 -->
+        <div class="terms-section" id="terms-section">
+          <div class="terms-all">
+            <label>
+              <input type="checkbox" id="terms-all-check">
+              이용약관 전체동의
+            </label>
+          </div>
+          <div class="terms-item">
+            <label>
+              <input type="checkbox" class="terms-check" data-key="nicepay_finance">
+              전자금융거래 이용약관 동의
+            </label>
+            <button class="terms-arrow" onclick="openTerms('nicepay_finance')">›</button>
+          </div>
+          <div class="terms-item">
+            <label>
+              <input type="checkbox" class="terms-check" data-key="nicepay_privacy">
+              개인정보 수집 및 이용 동의
+            </label>
+            <button class="terms-arrow" onclick="openTerms('nicepay_privacy')">›</button>
+          </div>
+          <div class="terms-item">
+            <label>
+              <input type="checkbox" class="terms-check" data-key="nicepay_third_party">
+              개인정보 제3자 제공약관 동의
+            </label>
+            <button class="terms-arrow" onclick="openTerms('nicepay_third_party')">›</button>
+          </div>
+          <div class="terms-item">
+            <label>
+              <input type="checkbox" class="terms-check" data-key="service_fee">
+              서비스 이용료 부과 안내 동의
+            </label>
+            <button class="terms-arrow" onclick="openTerms('service_fee')">›</button>
+          </div>
+        </div>
+
         <div class="amount-box" style="margin-top:14px; margin-bottom:0;">
           <span class="label">총 결제금액</span>
           <span class="amount" id="display-amount">1,250,000원</span>
@@ -809,7 +925,7 @@
       <!-- 푸터 -->
       <div class="modal-footer">
         <button class="btn btn-cancel">취소</button>
-        <button class="btn btn-next" onclick="goNext()">다음</button>
+        <button class="btn btn-next" id="pay-next-btn" onclick="goNext()">다음</button>
       </div>
 
     </div>
@@ -919,8 +1035,40 @@
 <script>
   const BASE_AMOUNT = 1250000;
 
+  const TERMS_URLS = {
+    nicepay_finance:    'https://placeholder.nicepay.co.kr/terms/finance',
+    nicepay_privacy:    'https://placeholder.nicepay.co.kr/terms/privacy',
+    nicepay_third_party:'https://placeholder.nicepay.co.kr/terms/third-party',
+    service_fee:        'https://placeholder.balju.com/terms/service-fee',
+  };
+
+  let currentPayType = 'credit';
+
   function fmt(n) {
     return n.toLocaleString('ko-KR') + '원';
+  }
+
+  function openTerms(key) {
+    window.open(TERMS_URLS[key], '_blank');
+  }
+
+  function updateNextBtn() {
+    const btn = document.getElementById('pay-next-btn');
+    const needTerms = currentPayType === 'credit' || currentPayType === 'saved';
+    if (!needTerms) { btn.disabled = false; return; }
+    btn.disabled = !Array.from(document.querySelectorAll('.terms-check')).every(c => c.checked);
+  }
+
+  function resetTerms() {
+    document.querySelectorAll('#terms-section input[type="checkbox"]').forEach(c => c.checked = false);
+  }
+
+  function updateTerms(type) {
+    const section = document.getElementById('terms-section');
+    const showTerms = type === 'credit' || type === 'saved';
+    section.classList.toggle('visible', showTerms);
+    resetTerms();
+    updateNextBtn();
   }
 
   function updateFeeNotice(type) {
@@ -940,13 +1088,32 @@
   }
 
   function selectOption(type) {
+    currentPayType = type;
     document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
     const map = { deposit: 'opt-deposit', credit: 'opt-credit', saved: 'opt-saved' };
     document.getElementById(map[type]).classList.add('selected');
     updateFeeNotice(type);
+    updateTerms(type);
   }
 
+  // 전체동의
+  document.getElementById('terms-all-check').addEventListener('change', function () {
+    document.querySelectorAll('.terms-check').forEach(c => c.checked = this.checked);
+    updateNextBtn();
+  });
+
+  // 개별 체크 → 전체동의 동기화
+  document.querySelectorAll('.terms-check').forEach(c => {
+    c.addEventListener('change', function () {
+      const all = Array.from(document.querySelectorAll('.terms-check')).every(c => c.checked);
+      document.getElementById('terms-all-check').checked = all;
+      updateNextBtn();
+    });
+  });
+
+  // 초기화 (신용카드 기본 선택)
   updateFeeNotice('credit');
+  updateTerms('credit');
 
   function goNext() {
     alert('다음 단계로 이동합니다.');
