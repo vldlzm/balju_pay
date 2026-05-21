@@ -682,6 +682,70 @@
     .btn-next:disabled:hover { opacity: 1; }
 
     /* ═══════════════════════════════════════
+       서비스 이용료 약관 화면 스타일
+    ═══════════════════════════════════════ */
+    .terms-detail-modal {
+      background: #fff;
+      border-radius: 16px;
+      width: 560px;
+      max-width: 100%;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
+      display: flex;
+      flex-direction: column;
+      max-height: 80vh;
+    }
+
+    .terms-detail-body {
+      padding: 20px 24px 10px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .terms-detail-intro {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .terms-article {
+      margin-bottom: 18px;
+    }
+
+    .terms-article-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 6px;
+    }
+
+    .terms-article-body {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    .terms-article-body ol,
+    .terms-article-body ul {
+      padding-left: 18px;
+      margin-top: 4px;
+    }
+
+    .terms-highlight {
+      background: #f0fff5;
+      border-left: 3px solid #00c73c;
+      border-radius: 4px;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    /* ═══════════════════════════════════════
        카드 등록완료 화면 스타일
     ═══════════════════════════════════════ */
     .complete-modal {
@@ -778,6 +842,9 @@
     </a>
     <a class="nav-item" href="#" data-screen="screen-card-complete" data-title="카드 등록완료">
       <span class="nav-dot"></span>카드 등록완료
+    </a>
+    <a class="nav-item" href="#" data-screen="screen-service-fee-terms" data-title="서비스 이용료 부과 안내">
+      <span class="nav-dot"></span>서비스 이용료 부과 안내
     </a>
   </nav>
 
@@ -1023,6 +1090,94 @@
     </div>
     </div><!-- /screen-card-complete -->
 
+    <!-- ── 서비스 이용료 부과 안내 화면 ── -->
+    <div id="screen-service-fee-terms" style="display:none">
+    <div class="terms-detail-modal">
+
+      <div class="modal-header">
+        <div class="header-logo">P</div>
+        <h2>서비스 이용료 부과 안내</h2>
+        <button class="btn-close" onclick="history.back()">×</button>
+      </div>
+
+      <div class="terms-detail-body">
+
+        <div class="terms-highlight">
+          신용카드 또는 등록된 카드로 결제 시 결제금액의 <strong>3%</strong>가 서비스 이용료로 부과됩니다.<br>
+          예치금 결제 시에는 이용료가 부과되지 않습니다.
+        </div>
+
+        <div class="terms-article">
+          <div class="terms-article-title">제1조 (목적)</div>
+          <div class="terms-article-body">
+            본 약관은 발주페이(이하 "회사")가 제공하는 결제 서비스 이용 시 부과되는 서비스 이용료에 관한 사항을 규정함을 목적으로 합니다.
+          </div>
+        </div>
+
+        <div class="terms-article">
+          <div class="terms-article-title">제2조 (이용료 부과 대상)</div>
+          <div class="terms-article-body">
+            다음의 결제 방식을 사용하는 경우 서비스 이용료가 부과됩니다.
+            <ol>
+              <li>신용카드 결제</li>
+              <li>등록된 카드로 결제</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="terms-article">
+          <div class="terms-article-title">제3조 (이용료율 및 계산)</div>
+          <div class="terms-article-body">
+            서비스 이용료는 결제금액의 3%로 산정되며, 원 단위 미만은 반올림 처리됩니다.<br>
+            최종 결제금액 = 결제금액 + (결제금액 × 3%)
+          </div>
+        </div>
+
+        <div class="terms-article">
+          <div class="terms-article-title">제4조 (면제 대상)</div>
+          <div class="terms-article-body">
+            예치금 결제 방식을 이용하는 경우 서비스 이용료가 부과되지 않습니다.
+          </div>
+        </div>
+
+        <div class="terms-article">
+          <div class="terms-article-title">제5조 (부과 시점)</div>
+          <div class="terms-article-body">
+            서비스 이용료는 결제 완료 시점에 결제금액에 포함하여 청구됩니다.
+          </div>
+        </div>
+
+        <div class="terms-article">
+          <div class="terms-article-title">제6조 (환불)</div>
+          <div class="terms-article-body">
+            결제가 취소되는 경우, 서비스 이용료를 포함한 전체 결제금액이 환불됩니다.
+          </div>
+        </div>
+
+        <div class="terms-article">
+          <div class="terms-article-title">제7조 (약관 변경)</div>
+          <div class="terms-article-body">
+            회사는 관련 법령에 위배되지 않는 범위에서 서비스 이용료율 및 본 약관을 변경할 수 있습니다. 변경 시에는 적용 30일 전부터 서비스 내 공지사항을 통해 사전 고지합니다.
+          </div>
+        </div>
+
+        <div class="terms-article">
+          <div class="terms-article-title">부칙</div>
+          <div class="terms-article-body">
+            본 약관은 2025년 1월 1일부터 시행합니다.
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-cancel" onclick="showScreen('screen-pay-method','결제 방식 선택')">닫기</button>
+        <button class="btn btn-next" onclick="showScreen('screen-pay-method','결제 방식 선택')">동의하고 돌아가기</button>
+      </div>
+
+    </div>
+    </div><!-- /screen-service-fee-terms -->
+
   </main>
 
   <!-- ── 우측: 화면 설명 ── -->
@@ -1049,6 +1204,10 @@
   }
 
   function openTerms(key) {
+    if (key === 'service_fee') {
+      showScreen('screen-service-fee-terms', '서비스 이용료 부과 안내');
+      return;
+    }
     window.open(TERMS_URLS[key], '_blank');
   }
 
